@@ -6,8 +6,10 @@ import edu.sabanci.utility.EntityManagerUtils;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class hw3Test {
     public static void main(String[] args) {
@@ -29,17 +31,21 @@ public class hw3Test {
         Instructor ınstructor1= new PermanentInstructor("Ahmet","Demirelli","Istanbul","555",20000);
         Instructor ınstructor2= new PermanentInstructor("Altuğ","Tanaltay","Istanbul","554",20000);
         Instructor ınstructor3= new VisitingInstructor("Koray","Güney","Istanbul","552",700);
+        List<Student> studentList = new ArrayList<>();
+        studentList.add(student1);
+        studentList.add(student2);
+        studentList.add(student3);
 
         course1.setInstructor(ınstructor3);
         course2.setInstructor(ınstructor2);
         course3.setInstructor(ınstructor1);
 
-        student1.getCourseList().add(course1);
-        student1.getCourseList().add(course2);
-        student1.getCourseList().add(course3);
-
-        student2.getCourseList().add(course1);
-        student3.getCourseList().add(course1);
+//        student1.getCourseList().add(course1);
+//        student1.getCourseList().add(course2);
+//        student1.getCourseList().add(course3);
+        course1.setStudentList(studentList);
+//        student2.getCourseList().add(course1);
+//        student3.getCourseList().add(course1);
 
         EntityManager entityManager = EntityManagerUtils.getEntityManager("mysqlPU");
 
@@ -50,11 +56,9 @@ public class hw3Test {
             entityManager.persist(student3);
             entityManager.persist(course1);
             entityManager.persist(course2);
-
             entityManager.persist(course3);
             entityManager.persist(ınstructor1);
             entityManager.persist(ınstructor2);
-
             entityManager.persist(ınstructor3);
             entityManager.getTransaction().commit();
             System.out.println("All data persisted!...");
